@@ -7,18 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 @Entity
 @Table(name = "users", indexes = {@Index(columnList = "username", unique = true)})
@@ -26,13 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class User implements UserDetails {
-    @Id
-    @GenericGenerator(name = "UUIDGenerator",strategy = "org.hibernate.id.UUIDGenerator")
-    @GeneratedValue(generator = "UUIDGenerator")
-    @Column(columnDefinition = "uuid")
-    private UUID userId;
-
+public class User extends AbstractEntity implements UserDetails {
     @Column(unique = true)
     private String username;
     private String emailAddress;
@@ -43,11 +32,6 @@ public class User implements UserDetails {
 
     @ManyToMany(mappedBy = "participants")
     private List<Challenge> challenges;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     private boolean enabled = true;
 

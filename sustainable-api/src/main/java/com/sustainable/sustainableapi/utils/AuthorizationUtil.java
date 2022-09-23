@@ -23,7 +23,7 @@ public class AuthorizationUtil {
         if (currentUser.getUserRole().equals(UserRole.ROLE_ADMIN)) return;
 
         // If user is himself, he is authorized
-        if (currentUser.getUserId().equals(userId)) return;
+        if (currentUser.getId().equals(userId)) return;
 
         // Otherwise, user is not authorized
         throw new CustomException("User is not authorized", HttpStatus.UNAUTHORIZED);
