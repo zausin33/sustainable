@@ -9,7 +9,6 @@ export const injectStore = (_store: EnhancedStore) => {
   store = _store;
 };
 
-console.log("creating", CORE_API_URL)
 const coreClient = axios.create({
   baseURL: CORE_API_URL,
   paramsSerializer: (params) => {
