@@ -30,7 +30,7 @@ import SignUpScreen from "../screens/auth/SignUpScreen";
 const RootStack = createNativeStackNavigator();
 
 export default  function RootNavigator() {
-    const isLoggedIn = useAppSelector(state => Boolean(state.user.username))
+    const isLoggedIn = useAppSelector(state => Boolean(state.users.current?.token))
 
   return (
     <RootStack.Navigator

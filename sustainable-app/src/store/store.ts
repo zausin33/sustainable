@@ -12,6 +12,7 @@ import {
     REGISTER,
     REHYDRATE,
 } from 'redux-persist/es/constants';
+import {injectStore} from "./apiClient";
 
 
 const persistConfig = {
@@ -32,6 +33,8 @@ const store = configureStore({
         })
 })
 const persistor = persistStore(store);
+
+injectStore(store);
 
 export {store, persistor};
 
