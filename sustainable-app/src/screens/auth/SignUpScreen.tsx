@@ -15,7 +15,7 @@ function SignUpScreen() {
     const [passwordRepeat, setPasswordRepeat] = useState("");
     const [passwordDoesNotMatch, setPasswordDoesNotMatch] = useState(false);
     const [notEverythingFilled, setNotEverythingFilled] = useState(false);
-    const isLoading = useAppSelector(state => state.users.status === "loading")
+    const isLoading = useAppSelector(state => state.status.isLoading)
     const styles = useSignUpScreenStyles();
     const dispatch = useAppDispatch()
 

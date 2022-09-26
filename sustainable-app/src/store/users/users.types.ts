@@ -1,6 +1,6 @@
-import {Model, Status} from '../store.types';
+import {Model} from '../store.types';
 
-export interface UsersState extends Status {
+export interface UsersState {
   current: User | undefined
 }
 
@@ -10,6 +10,10 @@ export interface User extends Model {
   challenges: string[]
   token: string;
   role: Role;
+}
+
+export interface Challenge extends Model {
+
 }
 
 export enum Role {ROLE_USER, ROLE_ADMIN }

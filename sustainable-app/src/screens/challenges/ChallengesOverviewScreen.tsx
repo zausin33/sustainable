@@ -201,11 +201,11 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({challenge}) => {
     const [days, setDays] = useState(calculateLastDays(offsetStart, offsetEnd))
 
     return (
-        <Card style={{marginBottom: 30, paddingHorizontal: 10, paddingVertical: 5}}>
+        <Card style={{marginTop: 30, paddingHorizontal: 10, paddingVertical: 5}}>
             <Text style={{fontWeight: "700", marginBottom: 5, fontSize: 16}}>{challenge.name}</Text>
             <FlatList data={days}
                       renderItem={({item}) => (
-                          <View style={{alignItems: "center", paddingRight: 30}}>
+                          <View style={{alignItems: "center", paddingRight: 30, marginBottom: 5}}>
                               <View style={{flexDirection: "row"}}>
                                   <Text style={{paddingRight: 5}}>
                                       {item.dayName}
@@ -231,7 +231,7 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({challenge}) => {
                       keyExtractor={day => day.date.toString()}
                       onEndReached={onRefresh}
                       refreshing={isRefreshing}
-                      showsHorizontalScrollIndicator={false}
+                      showsHorizontalScrollIndicator={true}
             />
             <ProgressBar progress={0.5} color={Colors.red800} />
         </Card>

@@ -1,9 +1,5 @@
 import {store} from "./store";
 
-export interface Status {
-    status: 'loading' | 'success' | 'reject' | undefined;
-}
-
 export interface Model {
     id: string;
 }

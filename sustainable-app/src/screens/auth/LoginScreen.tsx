@@ -15,9 +15,7 @@ function LoginScreen() {
     const styles = useLoginScreenStyles();
     const dispatch = useAppDispatch()
     const navigation = useNavigation()
-    const status = useAppSelector(state => state.users.status)
-    const isLoading = status === "loading"
-    const isError = status === "reject"
+    const isLoading =  useAppSelector(state => state.status.isLoading)
 
     const performLogin = () => {
         dispatch(signIn({username: username, password}))
@@ -41,7 +39,6 @@ function LoginScreen() {
               value={username}
               onChangeText={(value) => setUsername(value)}
               style={styles.emailField}
-              error={isError}
           />
           <InputField
               label={"Password"}
@@ -49,7 +46,6 @@ function LoginScreen() {
               value={password}
               onChangeText={(value) => setPassword(value)}
               style={styles.passwordField}
-              error={isError}
           />
           <Button
               style={styles.forgotPassword}
