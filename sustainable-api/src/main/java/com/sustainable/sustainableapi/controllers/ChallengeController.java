@@ -1,12 +1,13 @@
 package com.sustainable.sustainableapi.controllers;
 
-import com.sustainable.sustainableapi.model.entities.Challenge;
+import com.sustainable.sustainableapi.model.dtos.ChallengeDto;
 import com.sustainable.sustainableapi.services.ChallengeService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import javax.validation.Valid;
 import java.util.UUID;
 
 @RestController
@@ -19,24 +20,20 @@ public class ChallengeController {
         this.challengeService = challengeService;
     }
 
-    @GetMapping
-    public List<Challenge> getChallenges(){
-        return challengeService.getChallenge();
-    }
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/{challengeId}")
-    public Challenge getChallenge(@PathVariable UUID challengeId) {
+    public ChallengeDto getChallenge(@PathVariable UUID challengeId) {
         return challengeService.getChallenge(challengeId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    public Challenge createChallenge(@RequestBody Challenge challenge) {
+    public ChallengeDto createChallenge(@RequestBody @Valid ChallengeDto challenge) {
         return challengeService.createChallenge(challenge);
     }
 
     @PutMapping(value = "/{challengeId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Challenge updateChallenge(@RequestBody Challenge challenge,@PathVariable UUID challengeId){
+    public ChallengeDto updateChallenge(@RequestBody ChallengeDto challenge,@PathVariable UUID challengeId){
         return challengeService.updateChallenge(challenge, challengeId);
     }
 

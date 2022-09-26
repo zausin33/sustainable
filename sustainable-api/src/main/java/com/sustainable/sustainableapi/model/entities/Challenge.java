@@ -1,6 +1,9 @@
 package com.sustainable.sustainableapi.model.entities;
 
+import com.sustainable.sustainableapi.model.dtos.ChallengeDto;
+import com.sustainable.sustainableapi.model.dtos.UserDto;
 import com.sustainable.sustainableapi.model.enums.Color;
+import com.sustainable.sustainableapi.utils.Mapper;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,12 +20,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Challenge {
-    @Id
-    @GenericGenerator(name = "UUIDGenerator",strategy = "org.hibernate.id.UUIDGenerator")
-    @GeneratedValue(generator = "UUIDGenerator")
-    @Column(columnDefinition = "uuid")
-    private UUID challengeId;
+public class Challenge extends AbstractEntity{
 
     private String name;
 
@@ -60,5 +58,9 @@ public class Challenge {
     private String unit;
 
     private String question;
+
+    public ChallengeDto toDto() {
+        return Mapper.map(this, ChallengeDto.class);
+    }
 }
 

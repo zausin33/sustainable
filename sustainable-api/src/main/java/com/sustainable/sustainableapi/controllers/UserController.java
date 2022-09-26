@@ -3,7 +3,6 @@ package com.sustainable.sustainableapi.controllers;
 import com.sustainable.sustainableapi.model.dtos.SignInDto;
 import com.sustainable.sustainableapi.model.dtos.SignInResponseDto;
 import com.sustainable.sustainableapi.model.dtos.UserDto;
-import com.sustainable.sustainableapi.model.entities.User;
 import com.sustainable.sustainableapi.services.UserService;
 import com.sustainable.sustainableapi.utils.AuthorizationUtil;
 import org.springframework.http.MediaType;
@@ -47,7 +46,7 @@ public class UserController {
     }
 
     @PutMapping(value = "/{userId}", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public UserDto updateUser(@RequestBody User user,@PathVariable UUID userId){
+    public UserDto updateUser(@RequestBody UserDto user,@PathVariable UUID userId){
         AuthorizationUtil.checkUserIsHimselfOrAdmin(userId);
         return userService.updateUser(user, userId);
     }
