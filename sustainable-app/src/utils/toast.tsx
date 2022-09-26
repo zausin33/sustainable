@@ -5,9 +5,8 @@ import Toast, {
   ErrorToast,
 } from 'react-native-toast-message';
 import React from 'react';
-import I18n from '../i18n';
 
-export const showErrorMsg = (msg: string, title = I18n.t('misc.error')) => {
+export const showErrorMsg = (msg: string, title = "Fehler") => {
   Toast.show({
     type: 'error',
     text1: title,
@@ -15,7 +14,7 @@ export const showErrorMsg = (msg: string, title = I18n.t('misc.error')) => {
   });
 };
 
-export const showInfoMsg = (msg: string, title = I18n.t('misc.info')) => {
+export const showInfoMsg = (msg: string, title = "Info") => {
   Toast.show({
     type: 'info',
     text1: title,
@@ -23,7 +22,7 @@ export const showInfoMsg = (msg: string, title = I18n.t('misc.info')) => {
   });
 };
 
-export const showSuccessMsg = (msg: string, title = I18n.t('misc.success')) => {
+export const showSuccessMsg = (msg: string, title = "Erfolg") => {
   Toast.show({
     type: 'success',
     text1: title,
@@ -56,11 +55,9 @@ export const getToastConfig = (theme: ReactNativePaper.Theme) => {
             borderRadius: theme.roundness,
           }}
           text1Style={{
-            ...theme.body2,
             color: theme.colors.text,
           }}
           text2Style={{
-            ...theme.body4,
             color: theme.colors.text,
           }}
         />
@@ -82,11 +79,9 @@ export const getToastConfig = (theme: ReactNativePaper.Theme) => {
           borderRadius: theme.roundness,
         }}
         text1Style={{
-          ...theme.body2,
           color: theme.colors.text,
         }}
         text2Style={{
-          ...theme.body4,
           color: theme.colors.text,
         }}
       />
@@ -107,11 +102,9 @@ export const getToastConfig = (theme: ReactNativePaper.Theme) => {
           borderRadius: theme.roundness,
         }}
         text1Style={{
-          ...theme.body2,
           color: theme.colors.text,
         }}
         text2Style={{
-          ...theme.body4,
           color: theme.colors.text,
         }}
       />

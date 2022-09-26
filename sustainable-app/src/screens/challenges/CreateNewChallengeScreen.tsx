@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
-import {Image, View} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
 import Screen from "../../components/layout/Screen";
-import {Button, Headline, Text} from "react-native-paper"
+import {Button, Text} from "react-native-paper"
 import InputField from "../../components/core/InputField"
 import useLoginScreenStyles from "../../styles/screens/auth/loginScreen";
-import {login} from "../../store/users/users.slice";
-import {useAppDispatch} from "../../store/hooks";
 
 
 function LoginScreen() {

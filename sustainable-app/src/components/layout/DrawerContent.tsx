@@ -12,7 +12,7 @@ import {logout} from "../../store/users/users.slice";
 const SettingsDrawerContent: React.FC = (props: any) => {
     const navigation = useNavigation()
     const theme = useTheme()
-    const user = useAppSelector(state => state.user)
+    const user = useAppSelector(state => state.users.current)!
     const isDarkMode = useAppSelector(state => state.theme.isDark)
     const dispatch = useAppDispatch()
 

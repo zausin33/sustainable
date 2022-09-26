@@ -1,7 +1,7 @@
 package com.sustainable.sustainableapi.controllers;
 
 import com.sustainable.sustainableapi.model.dtos.SignInDto;
-import com.sustainable.sustainableapi.model.dtos.TokenDto;
+import com.sustainable.sustainableapi.model.dtos.SignInResponseDto;
 import com.sustainable.sustainableapi.model.dtos.UserDto;
 import com.sustainable.sustainableapi.model.entities.User;
 import com.sustainable.sustainableapi.services.UserService;
@@ -25,12 +25,12 @@ public class UserController {
     }
 
     @PostMapping("/signin")
-    public TokenDto login(@RequestBody @Valid SignInDto signInDto) {
+    public SignInResponseDto signIn(@RequestBody @Valid SignInDto signInDto) {
         return userService.signin(signInDto);
     }
 
     @PostMapping("/signup")
-    public TokenDto signup(@RequestBody @Valid UserDto user) {
+    public SignInResponseDto signup(@RequestBody @Valid UserDto user) {
         return userService.signup(user);
     }
 

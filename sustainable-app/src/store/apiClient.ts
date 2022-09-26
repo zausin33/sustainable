@@ -9,21 +9,23 @@ export const injectStore = (_store: EnhancedStore) => {
   store = _store;
 };
 
+console.log("creating", CORE_API_URL)
 const coreClient = axios.create({
   baseURL: CORE_API_URL,
-  paramsSerializer: (params) =>
-    qs.stringify(params, {
+  paramsSerializer: (params) => {
+    return qs.stringify(params, {
       encode: false,
       arrayFormat: 'brackets',
-    }),
+    })
+  }
 });
 
 coreClient.interceptors.request.use((config) => {
   const state = store.getState();
-  if (state.auth.accessToken) {
+  if (state.users.current?.token) {
     config.headers = {
       ...config.headers,
-      Authorization: `Bearer ${state.auth.accessToken}`,
+      Authorization: `Bearer ${state.users.current.token}`,
     };
   }
   return config;

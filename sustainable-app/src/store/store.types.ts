@@ -1,5 +1,13 @@
 import {store} from "./store";
 
+export interface Status {
+    status: 'loading' | 'success' | 'reject' | undefined;
+}
+
+export interface Model {
+    id: string;
+}
+
 // Infer the `RootState` and `AppDispatch` types from the store itself
 export type RootState = ReturnType<typeof store.getState>
 // Inferred type: {posts: PostsState, comments: CommentsState, users: UsersState}

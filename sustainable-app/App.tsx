@@ -13,6 +13,8 @@ import defaultTheme from "./src/styles/defaultTheme";
 import {Appearance, Text} from "react-native";
 import {useAppDispatch, useAppSelector} from "./src/store/hooks";
 import {setTheme} from "./src/store/theme/theme.slice";
+import Toast from 'react-native-toast-message';
+import {getToastConfig} from "./src/utils/toast";
 
 export default function App() {
     const isLoadingComplete = useCachedResources();
@@ -34,6 +36,7 @@ const ThemeProviders: React.FC = () => {
     const dispatch = useAppDispatch()
     const isDark = useAppSelector(state => state.theme.isDark);
     const theme = defaultTheme(isDark)
+    const toastConfig = getToastConfig(theme);
 
     Appearance.addChangeListener(() => {
         dispatch(setTheme({isDark: Appearance.getColorScheme() === "dark"}))
@@ -44,6 +47,7 @@ const ThemeProviders: React.FC = () => {
             <PaperProvider theme={theme}>
                 <NavigationContainer theme={theme}>
                     <RootNavigator/>
+                    <Toast position="bottom" visibilityTime={3000} config={toastConfig} />
                 </NavigationContainer>
             </PaperProvider>
         </SafeAreaProvider>

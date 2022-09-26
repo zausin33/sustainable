@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {useRef, useState} from 'react';
 import {KeyboardTypeOptions, LayoutChangeEvent, StyleProp, View, ViewStyle, Text} from 'react-native';
-import {TextInput} from 'react-native-paper';
+import {HelperText, TextInput} from 'react-native-paper';
 // @ts-ignore
 import Feather from 'react-native-vector-icons/Feather';
 import useInputFieldStyles from "../../styles/components/core/inputField";
@@ -19,6 +19,7 @@ interface InputFieldProps {
   multiline?: boolean;
   isTrimOnBlur?: boolean;
   style?: StyleProp<ViewStyle>;
+  errorText?: string;
 }
 
 const InputField: React.FC<InputFieldProps> = ({
@@ -34,6 +35,7 @@ const InputField: React.FC<InputFieldProps> = ({
       multiline = false,
       isTrimOnBlur = false,
       style,
+      errorText=""
 }) => {
   const styles = useInputFieldStyles();
   const text = isTrimOnBlur ? value?.trim() : value;
@@ -56,33 +58,40 @@ const InputField: React.FC<InputFieldProps> = ({
   )
 
   return (
-        <TextInput
-            mode={'outlined'}
-            keyboardType={keyboardType}
-            label={labelElement}
-            style={[style, height, styles.textInput]}
-            value={text}
-            placeholder={placeholder}
-            onChangeText={(newText) => {
-              changeText(newText);
-            }}
-            onBlur={() => {
-              if (isTrimOnBlur) {
-                onChangeText(text.trim());
-              }
-            }}
-            disabled={disabled}
-            error={error}
-            secureTextEntry={isSecureText}
-            multiline={multiline}
-            right={
-            secureText && (
-              <TextInput.Icon name={isSecureText ? 'eye': 'eye-off'}
-                              onPress={() => {setSecureText(!isSecureText)}}
-                              style={styles.icon}
-              />
-                )}
-        />
+      <>
+          <TextInput
+              mode={'outlined'}
+              keyboardType={keyboardType}
+              label={labelElement}
+              style={[style, height, styles.textInput]}
+              value={text}
+              placeholder={placeholder}
+              onChangeText={(newText) => {
+                  changeText(newText);
+              }}
+              onBlur={() => {
+                  if (isTrimOnBlur) {
+                      onChangeText(text.trim());
+                  }
+              }}
+              disabled={disabled}
+              error={error}
+              secureTextEntry={isSecureText}
+              multiline={multiline}
+              right={
+                  secureText && (
+                      <TextInput.Icon name={isSecureText ? 'eye': 'eye-off'}
+                                      onPress={() => {setSecureText(!isSecureText)}}
+                                      style={styles.icon}
+                      />
+                  )}
+          />
+          {Boolean(errorText) && (
+              <HelperText type="error" visible={error}>
+                  {errorText}
+              </HelperText>
+          )}
+      </>
   );
 };
 

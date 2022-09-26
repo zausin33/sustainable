@@ -4,20 +4,23 @@ import Screen from "../../components/layout/Screen";
 import {Button, Headline, Text} from "react-native-paper"
 import InputField from "../../components/core/InputField"
 import useLoginScreenStyles from "../../styles/screens/auth/loginScreen";
-import {login} from "../../store/users/users.slice";
-import {useAppDispatch} from "../../store/hooks";
+import {signIn} from "../../store/users/users.slice";
+import {useAppDispatch, useAppSelector} from "../../store/hooks";
 import {useNavigation} from "@react-navigation/native";
 
 
 function LoginScreen() {
-    const [email, setEmail] = useState("");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const styles = useLoginScreenStyles();
     const dispatch = useAppDispatch()
     const navigation = useNavigation()
+    const status = useAppSelector(state => state.users.status)
+    const isLoading = status === "loading"
+    const isError = status === "reject"
 
     const performLogin = () => {
-        dispatch(login({username: email, email}))
+        dispatch(signIn({username: username, password}))
     }
 
   return (
@@ -34,11 +37,11 @@ function LoginScreen() {
             style={styles.headlineImage}
           />
           <InputField
-              label={"Email"}
-              keyboardType={"email-address"}
-              value={email}
-              onChangeText={(value) => setEmail(value)}
+              label={"Username"}
+              value={username}
+              onChangeText={(value) => setUsername(value)}
               style={styles.emailField}
+              error={isError}
           />
           <InputField
               label={"Password"}
@@ -46,6 +49,7 @@ function LoginScreen() {
               value={password}
               onChangeText={(value) => setPassword(value)}
               style={styles.passwordField}
+              error={isError}
           />
           <Button
               style={styles.forgotPassword}
@@ -57,6 +61,8 @@ function LoginScreen() {
           </Button>
           <Button mode={"contained"}
                   onPress={performLogin}
+                  loading={isLoading}
+                  disabled={isLoading || !username || !password}
           >
               Sign In
           </Button>

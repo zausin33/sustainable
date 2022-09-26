@@ -50,7 +50,7 @@ export const LogoTitle: React.FC = () => {
 }
 
 export const AccountIcon: React.FC = () => {
-    const username = useAppSelector(state => state.user.username)
+    const username = useAppSelector(state => state.users.current?.username)
     const theme = useTheme()
     const navigation = useNavigation()
 

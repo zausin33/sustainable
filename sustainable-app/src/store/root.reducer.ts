@@ -3,7 +3,7 @@ import usersSlice from './users/users.slice';
 import theme from "./theme/theme.slice";
 
 const rootReducer = combineReducers({
-  user: usersSlice,
+  users: usersSlice,
   theme,
 });
 

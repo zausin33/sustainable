@@ -24,7 +24,7 @@ const useLoginScreenStyles = () => {
           marginBottom: 15
         },
         passwordField: {
-          marginBottom: 5
+          marginBottom: 15
         },
         textButton: {
             fontSize: 15,
