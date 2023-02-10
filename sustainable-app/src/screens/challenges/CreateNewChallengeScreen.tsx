@@ -1,12 +1,13 @@
 import React from 'react';
 import {View} from 'react-native';
 import Screen from "../../components/layout/Screen";
-import {Button, Text} from "react-native-paper"
+import {Button, Checkbox, Headline, Switch, Text} from "react-native-paper"
 import InputField from "../../components/core/InputField"
 import useLoginScreenStyles from "../../styles/screens/auth/loginScreen";
+import TimePicker from "../../components/core/TimePicker";
 
 
-function LoginScreen() {
+function CreateNewChallengeScreen() {
     const styles = useLoginScreenStyles();
 
   return (
@@ -14,12 +15,51 @@ function LoginScreen() {
       <View
         style={styles.container}
       >
-          <Text style={styles.headline}>
+          <Headline>
               Neue Challenge Erstellen
-          </Text>
+          </Headline>
           <InputField
-              label={"Name"}
-              keyboardType={"email-address"}
+              label={"Name der Challenge"}
+              placeholder={"z.B. Weniger fleisch essen"}
+              value={""}
+              onChangeText={(value) => {}}
+              style={styles.emailField}
+          />
+          <InputField
+              label={"Beschreibung"}
+              placeholder={"z.B. Jeden zweiten Tag kein Fleisch essen"}
+              value={""}
+              onChangeText={(value) => {}}
+              style={styles.emailField}
+          />
+          <InputField
+              label={"Frage"}
+              placeholder={"z.B. Hast du heute kein Fleisch gegessen?"}
+              value={""}
+              onChangeText={(value) => {}}
+              style={styles.emailField}
+          />
+          <View>
+              <Text>Ja / Nein</Text>
+              <Switch />
+              <Text>Messbar</Text>
+          </View>
+
+          <InputField
+              label={"Einheit"}
+              value={"z.B. km"}
+              onChangeText={(value) => {}}
+              style={styles.emailField}
+          />
+          <InputField
+              label={"Ziel"}
+              value={"z.B. 5"}
+              onChangeText={(value) => {}}
+              style={styles.emailField}
+          />
+          <TimePicker />
+          <InputField
+              label={"Wiederholung"}
               value={""}
               onChangeText={(value) => {}}
               style={styles.emailField}
@@ -35,4 +75,4 @@ function LoginScreen() {
   );
 }
 
-export default LoginScreen;
+export default CreateNewChallengeScreen;

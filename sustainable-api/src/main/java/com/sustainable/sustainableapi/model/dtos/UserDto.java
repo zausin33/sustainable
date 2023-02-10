@@ -37,7 +37,7 @@ public class UserDto {
 
     private UserRole userRole;
 
-    private List<Challenge> challenges;
+    private List<ChallengeDto> challenges;
 
     public User toEntity() {
         return Mapper.map(this, User.class);

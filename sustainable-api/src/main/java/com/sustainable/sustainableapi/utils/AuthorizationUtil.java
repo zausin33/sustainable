@@ -16,8 +16,7 @@ import java.util.UUID;
 public class AuthorizationUtil {
 
     public static void checkUserIsHimselfOrAdmin(UUID userId) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User currentUser = (User) authentication.getPrincipal();
+        User currentUser = getCurrentUser();
 
         // If user is admin, he is authorized
         if (currentUser.getUserRole().equals(UserRole.ROLE_ADMIN)) return;
@@ -27,5 +26,10 @@ public class AuthorizationUtil {
 
         // Otherwise, user is not authorized
         throw new CustomException("User is not authorized", HttpStatus.UNAUTHORIZED);
+    }
+
+    public static User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        return (User) authentication.getPrincipal();
     }
 }

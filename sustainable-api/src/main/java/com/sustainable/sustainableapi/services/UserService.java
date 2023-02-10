@@ -84,7 +84,7 @@ public class UserService implements UserDetailsService {
 
     }
 
-    public UserDto updateUser(User user, UUID userId) {
+    public UserDto updateUser(UserDto user, UUID userId) {
         return null;
     }
 

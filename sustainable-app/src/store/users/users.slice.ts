@@ -5,7 +5,6 @@ import {showErrorMsg, showInfoMsg, showSuccessMsg} from "../../utils/toast";
 
 const initialState: UsersState = {
     current: undefined,
-    status: undefined,
 
 }
 
@@ -26,7 +25,7 @@ export const signUp = createAsyncThunk(
 );
 
 export const userSlice = createSlice({
-    name: 'user',
+    name: 'users',
     initialState,
     reducers: {
         logout() {
@@ -36,31 +35,15 @@ export const userSlice = createSlice({
     extraReducers: (builder) => {
         builder
             // signIn
-            .addCase(signIn.pending, (state) => {
-                state.status = 'loading';
-            })
             .addCase(signIn.fulfilled, (state, {payload}) => {
-                state.status = 'success';
                 state.current = payload.user
                 state.current!.token = payload.token
             })
-            .addCase(signIn.rejected, (state, ) => {
-                state.status = 'reject';
-                showErrorMsg("This combination of username and password is wrong")
-            })
         // signUp
-            .addCase(signUp.pending, (state) => {
-                state.status = 'loading';
-            })
             .addCase(signUp.fulfilled, (state, {payload}) => {
-                state.status = 'success';
                 state.current = payload.user
                 state.current!.token = payload.token
                 showSuccessMsg("Successfully created account")
-            })
-            .addCase(signUp.rejected, (state, error, ) => {
-                state.status = 'reject';
-                showErrorMsg("This username is already taken")
             })
     }
 })

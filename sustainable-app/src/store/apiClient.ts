@@ -1,11 +1,12 @@
 import axios from 'axios';
-import { EnhancedStore } from '@reduxjs/toolkit';
+import { Store } from '@reduxjs/toolkit';
 import { CORE_API_URL } from '@env';
 import qs from 'qs';
+import {endRequestSuccessful, endRequestWithError, setIsLoading, startRequest} from "./status/status.slice";
 
-let store: EnhancedStore;
+let store: Store;
 
-export const injectStore = (_store: EnhancedStore) => {
+export const injectStore = (_store: Store) => {
   store = _store;
 };
 
@@ -27,7 +28,21 @@ coreClient.interceptors.request.use((config) => {
       Authorization: `Bearer ${state.users.current.token}`,
     };
   }
+  store.dispatch(startRequest());
   return config;
+}, error => {
+  console.log("request error", error.message, error.request?.data)
+  store.dispatch(endRequestWithError({error}));
+});
+
+
+coreClient.interceptors.response.use(function (response) {
+  store.dispatch(endRequestSuccessful())
+  return response;
+}, function (error) {
+  console.log("api error", error.message, error.response?.data)
+  store.dispatch(endRequestWithError({error: error.response?.data}));
+  return Promise.reject(error);
 });
 
 export { coreClient };

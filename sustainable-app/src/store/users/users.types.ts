@@ -1,13 +1,14 @@
-import {Model, Status} from '../store.types';
+import {Model} from '../store.types';
+import {Challenge} from "../challenges/challenges.types";
 
-export interface UsersState extends Status {
+export interface UsersState {
   current: User | undefined
 }
 
 export interface User extends Model {
   username: string;
   email: string;
-  challenges: string[]
+  challenges: Challenge[]
   token: string;
   role: Role;
 }
