@@ -1,7 +1,6 @@
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 
 import useCachedResources from './src/hooks/useCachedResources';
-import useColorScheme from './src/hooks/useColorScheme';
 import RootNavigator from './src/navigation/Navigation';
 import {Provider} from 'react-redux';
 import {persistor, store} from "./src/store/store";
@@ -15,6 +14,23 @@ import {useAppDispatch, useAppSelector} from "./src/store/hooks";
 import {setTheme} from "./src/store/theme/theme.slice";
 import Toast from 'react-native-toast-message';
 import {getToastConfig} from "./src/utils/toast";
+import {
+    de,
+    enGB,
+    registerTranslation,
+} from 'react-native-paper-dates'
+import "intl";
+import { Platform } from "react-native";
+import "intl/locale-data/jsonp/en";
+
+if (Platform.OS === "android") {
+    // See https://github.com/expo/expo/issues/6536 for this issue.
+    if (typeof (Intl as any).__disableRegExpRestore === "function") {
+        (Intl as any).__disableRegExpRestore();
+    }
+}
+
+registerTranslation('de', de)
 
 export default function App() {
     const isLoadingComplete = useCachedResources();

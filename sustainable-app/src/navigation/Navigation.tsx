@@ -10,7 +10,7 @@ import {Pressable, Text, View} from 'react-native';
 import ModalScreen from '../screens/ModalScreen';
 import TabOneScreen from '../screens/TabOneScreen';
 import TabTwoScreen from '../screens/TabTwoScreen';
-import {RootStackParamList, RootTabParamList, RootTabScreenProps} from './Navigation.types';
+import {ChallengeStackParamList, RootStackParamList, RootTabParamList, RootTabScreenProps} from './Navigation.types';
 import LoginScreen from "../screens/auth/LoginScreen";
 import Header, {AccountIcon, LogoTitle} from '../components/layout/Header'
 import {createBottomTabNavigator} from "@react-navigation/bottom-tabs";
@@ -27,7 +27,7 @@ import SignUpScreen from "../screens/auth/SignUpScreen";
  * A root stack navigator is often used for displaying modals on top of all other content.
  * https://reactnavigation.org/docs/modal
  */
-const RootStack = createNativeStackNavigator();
+const RootStack = createNativeStackNavigator<RootStackParamList>();
 
 export default  function RootNavigator() {
     const isLoggedIn = useAppSelector(state => Boolean(state.users.current?.token))
@@ -149,7 +149,7 @@ function TabBarIcon(props: {
 /**
  * The challenge stack navigator.
  */
-const ChallengeStack = createNativeStackNavigator();
+const ChallengeStack = createNativeStackNavigator<ChallengeStackParamList>();
 
 function ChallengeStackNavigator() {
     return (
@@ -158,9 +158,9 @@ function ChallengeStackNavigator() {
                 headerShown: false
             }}
         >
-            <RootStack.Screen name="ChallengeOverviewScreen" component={ChallengeOverviewScreen} />
-            <RootStack.Screen name="SelectNewChallengeScreen" component={SelectNewChallengeScreen} />
-            <RootStack.Screen name="CreateNewChallengeScreen" component={CreateNewChallengeScreen} />
+            <ChallengeStack.Screen name="ChallengeOverviewScreen" component={ChallengeOverviewScreen} />
+            <ChallengeStack.Screen name="SelectNewChallengeScreen" component={SelectNewChallengeScreen} />
+            <ChallengeStack.Screen name="CreateNewChallengeScreen" component={CreateNewChallengeScreen} />
         </ChallengeStack.Navigator>
     );
 }

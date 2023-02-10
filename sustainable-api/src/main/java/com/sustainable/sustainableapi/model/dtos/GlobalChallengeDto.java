@@ -39,6 +39,8 @@ public class GlobalChallengeDto {
 
     private String note;
 
+    private String question;
+
     public GlobalChallenge toEntity() {
         return Mapper.map(this, GlobalChallenge.class);
     }

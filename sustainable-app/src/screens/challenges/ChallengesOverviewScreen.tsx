@@ -4,131 +4,17 @@ import Screen from "../../components/layout/Screen";
 import {Card, Colors, FAB, ProgressBar, Text, useTheme} from "react-native-paper"
 import {MaterialCommunityIcons} from "@expo/vector-icons";
 import {useNavigation} from "@react-navigation/native";
-
-type Challenge = {
-    id: string;
-    name: string;
-    category: null;
-    measurable: boolean;
-    frequency: string;
-    note: string;
-}
-
-const challenges: Challenge[] = [
-    {
-        id: "1",
-        name: "Laufen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "2",
-        name: "Springen",
-        category: null,
-        measurable: true,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "3",
-        name: "Hüpfen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "4",
-        name: "Gehen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "5",
-        name: "Hüpfen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "6",
-        name: "Gehen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "7",
-        name: "Hüpfen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "8",
-        name: "Gehen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "9",
-        name: "Hüpfen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "10",
-        name: "Gehen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "11",
-        name: "Hüpfen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    },
-    {
-        id: "12",
-        name: "Gehen",
-        category: null,
-        measurable: false,
-        frequency: "daily",
-        note: "Geh laufen du Stück!",
-
-    }
-]
+import {useAppSelector} from "../../store/hooks";
+import ListEmptyComponent from "../../components/core/ListEmptyComponent";
+import {ChallengeStackScreenProps} from "../../navigation/Navigation.types";
+import {Challenge} from "../../store/challenges/challenges.types";
 
 function ChallengeOverviewScreen() {
-    const navigation = useNavigation()
+    const navigation = useNavigation<ChallengeStackScreenProps<"ChallengeOverviewScreen">["navigation"]>()
+    const challenges = useAppSelector(state => state.users.current?.challenges)
 
   return (
+      // TODO refetch challenges when entering this page
     <Screen isScrollView={false}>
         <>
             <View style={{flex: 1}}>
@@ -136,6 +22,7 @@ function ChallengeOverviewScreen() {
                     data={challenges}
                     renderItem={renderItem => <ChallengeCard  challenge={renderItem.item}/>}
                     keyExtractor={renderItem => renderItem.id}
+                    ListEmptyComponent={<ListEmptyComponent text={"You have no challenges yet"} />}
                 />
                 <Text style={{marginVertical: 30}}>
                     Du bist bei allen Challenges auf dem aktuellen Stand
@@ -146,7 +33,7 @@ function ChallengeOverviewScreen() {
                     position: 'absolute',
                     margin: 16,
                     right: 0,
-                    bottom: 0
+                    bottom: 50
                 }}
                 icon="plus"
                 onPress={() => navigation.navigate("SelectNewChallengeScreen")}
@@ -172,6 +59,7 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({challenge}) => {
     const [offsetStart, setOffsetStart] = useState(0)
     const [offsetEnd, setOffsetEnd] = useState(INITIAL_DAYS_SHOWN)
     const [isRefreshing, setRefreshing] = useState(false);
+    const theme = useTheme();
 
     const calculateLastDays = (offsetStart: number, offsetEnd: number) => {
         const dayNames = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"] // Todo language
@@ -220,7 +108,7 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({challenge}) => {
                                       <Text>Einheit</Text>
                                   </>
                               ) : (
-                                  <MaterialCommunityIcons name={"check"} size={30}/>
+                                  <MaterialCommunityIcons name={"check"} size={30} color={theme.colors.primary}/>
                               )}
 
                           </View>
@@ -233,7 +121,7 @@ const ChallengeCard: React.FC<ChallengeCardProps> = ({challenge}) => {
                       refreshing={isRefreshing}
                       showsHorizontalScrollIndicator={true}
             />
-            <ProgressBar progress={0.5} color={Colors.red800} />
+            <ProgressBar progress={0.5} color={theme.colors.primary} />
         </Card>
     );
 }

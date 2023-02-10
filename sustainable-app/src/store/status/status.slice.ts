@@ -28,7 +28,7 @@ export const statusSlice = createSlice({
       state.isLoading = false;
       state.isError = true;
       state.error = error;
-      showErrorMsg(error.message, error.error)
+      if (error) showErrorMsg(error.message, error.error)
     },
     endRequestSuccessful: (state) => {
       state.isLoading = false;
