@@ -26,6 +26,9 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             throws ServletException, IOException {
         String token = jwtTokenProvider.resolveToken(request);
         try {
+            // If there is a token, but it is not valid (jwtTokenProvider.validateToken throws an error),
+            // something went wrong in the frontend, because the backend should never be queried with an invalid token.
+            // If the frontend want to reach the permitted routes, it should not give a token at all.
             if (token != null && jwtTokenProvider.validateToken(token)) {
                 Authentication auth = jwtTokenProvider.getAuthentication(token);
                 SecurityContextHolder.getContext().setAuthentication(auth);
